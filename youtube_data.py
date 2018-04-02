@@ -36,6 +36,7 @@ def youtube_search(q, max_results=50,order="relevance", token=None, location=Non
     category = []
     tags = []
     videos = []
+    publishedAt = []
     
     for search_result in search_response.get("items", []):
       if search_result["id"]["kind"] == "youtube#video":
@@ -55,6 +56,7 @@ def youtube_search(q, max_results=50,order="relevance", token=None, location=Non
         viewCount.append(response['items'][0]['statistics']['viewCount'])
         likeCount.append(response['items'][0]['statistics']['likeCount'])
         dislikeCount.append(response['items'][0]['statistics']['dislikeCount'])
+        publishedAt.append(response['items'][0]['snippet']['publishedAt'])
  
         if 'commentCount' in response['items'][0]['statistics'].keys():
             commentCount.append(response['items'][0]['statistics']['commentCount'])
@@ -66,6 +68,6 @@ def youtube_search(q, max_results=50,order="relevance", token=None, location=Non
         else:
             tags.append([])
 
-    youtube_dict = {'tags':tags,'channelId': channelId,'channelTitle': channelTitle,'categoryId':categoryId,'title':title,'videoId':videoId,'viewCount':viewCount,'likeCount':likeCount,'dislikeCount':dislikeCount,'commentCount':commentCount,'favoriteCount':favoriteCount}
+    youtube_dict = {'tags':tags,'channelId': channelId,'channelTitle': channelTitle,'categoryId':categoryId,'title':title,'videoId':videoId,'viewCount':viewCount,'likeCount':likeCount,'dislikeCount':dislikeCount,'commentCount':commentCount,'favoriteCount':favoriteCount,'publishedAt':publishedAt}
 
     return youtube_dict
